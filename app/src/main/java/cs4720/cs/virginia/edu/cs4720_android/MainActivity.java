@@ -1,5 +1,6 @@
-//
 package cs4720.cs.virginia.edu.cs4720_android;
+
+
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,14 +19,11 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-
-        btnGPSShowLocation = (Button) findViewById(R.id.btnGPSShowLocation);
-
-            // show location button click event
-        btnGPSShowLocation.setOnClickListener(new View.OnClickListener() {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
