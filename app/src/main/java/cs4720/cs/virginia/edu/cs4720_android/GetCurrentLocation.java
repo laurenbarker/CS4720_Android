@@ -4,10 +4,6 @@ package cs4720.cs.virginia.edu.cs4720_android;
  * Created by reinaH on 9/13/15.
  */
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -23,12 +19,19 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class GetCurrentLocation extends Activity
         implements OnClickListener {
@@ -64,6 +67,43 @@ public class GetCurrentLocation extends Activity
         locationMangaer = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
 
+    }
+
+    // Lauren: not sure if this is the right place for this but it works
+    /* When the up button is clicked it increases the number
+     * when the down button is clicked it decreases the number
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        ImageButton upButton = (ImageButton) findViewById(R.id.up);
+
+        upButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView num = (TextView)findViewById(R.id.number);
+                Integer orgNum = Integer.parseInt(num.getText().toString());
+                Integer newNum = orgNum + 1;
+                num.setText(newNum.toString());
+            }
+
+        });
+        ImageButton downButton = (ImageButton) findViewById(R.id.down);
+
+        downButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView num = (TextView) findViewById(R.id.number);
+                Integer orgNum = Integer.parseInt(num.getText().toString());
+                Integer newNum = orgNum - 1;
+                num.setText(newNum.toString());
+            }
+        });
+
+        return true;
     }
 
     @Override
