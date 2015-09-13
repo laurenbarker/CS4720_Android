@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+//
+//    public void startService(View view) {
+//        Intent intent = new Intent(this, GetCurrentLocation.class);
+//        startService(intent);
+//    }
+//
+//    public void stopService(View view) {
+//        Intent intent = new Intent(this, GetCurrentLocation.class);
+//        stopService(intent);
 
-    public void startService(View view) {
-        Intent intent = new Intent(this, GetCurrentLocation.class);
-        startService(intent);
-    }
 
-    public void stopService(View view) {
-        Intent intent = new Intent(this, GetCurrentLocation.class);
-        stopService(intent);
     }
-}

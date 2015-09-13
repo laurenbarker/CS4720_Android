@@ -73,16 +73,21 @@ public class GetCurrentLocation extends Activity
 
             Log.v(TAG, "onClick");
 
-            editLocation.setText("Please!! move your device to"+
-                    " see the changes in coordinates."+"\nWait..");
+            editLocation.setText("Please!! move your device to" +
+                    " see the changes in coordinates." + "\nWait..");
 
             pb.setVisibility(View.VISIBLE);
             locationListener = new MyLocationListener();
 
-            locationMangaer.requestLocationUpdates(LocationManager
-                    .GPS_PROVIDER, 5000, 10,locationListener);
+            if (displayGpsStatus()){
+                try{
+                    locationMangaer.requestLocationUpdates(LocationManager
+                            .GPS_PROVIDER, 5000, 10, locationListener);
+                } catch (final SecurityException ex){
+                    Log.i("GetCurrentLocation","Sorry, application does not have permissions to send to this destination.");
 
-
+                }
+            }
 
         } else {
             alertbox("Gps Status!!", "Your GPS is: OFF");
@@ -92,17 +97,22 @@ public class GetCurrentLocation extends Activity
 
     /*----Method to Check GPS is enable or disable ----- */
     private Boolean displayGpsStatus() {
-        ContentResolver contentResolver = getBaseContext()
-                .getContentResolver();
-        boolean gpsStatus = Settings.Secure
-                .isLocationProviderEnabled(contentResolver,
-                        LocationManager.GPS_PROVIDER);
+//        ContentResolver contentResolver = getBaseContext()
+//                .getContentResolver();
+//        boolean gpsStatus = Settings.Secure
+//                .isLocationProviderEnabled(contentResolver,
+//                        LocationManager.GPS_PROVIDER);
+
+        Context context = this;
+        LocationManager mlocManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);;
+        boolean gpsStatus = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (gpsStatus) {
             return true;
 
         } else {
             return false;
         }
+
     }
 
     /*----------Method to create an AlertBox ------------- */
