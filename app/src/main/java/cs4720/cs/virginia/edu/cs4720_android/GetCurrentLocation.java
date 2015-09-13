@@ -73,14 +73,19 @@ public class GetCurrentLocation extends Activity
 
             Log.v(TAG, "onClick");
 
-            editLocation.setText("Please!! move your device to"+
-                    " see the changes in coordinates."+"\nWait..");
+            editLocation.setText("Please!! move your device to" +
+                    " see the changes in coordinates." + "\nWait..");
 
             pb.setVisibility(View.VISIBLE);
             locationListener = new MyLocationListener();
 
-            locationMangaer.requestLocationUpdates(LocationManager
-                    .GPS_PROVIDER, 5000, 10,locationListener);
+            try{
+                locationMangaer.requestLocationUpdates(LocationManager
+                        .GPS_PROVIDER, 5000, 10, locationListener);
+            } catch (final SecurityException ex){
+                Log.i("GetCurrentLocation","Sorry, application does not have permissions to send to this destination.");
+
+            }
 
 
 
