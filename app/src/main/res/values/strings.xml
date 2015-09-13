@@ -3,4 +3,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="change_number">Click the up and down arrows to change the number!</string>
 </resources>
