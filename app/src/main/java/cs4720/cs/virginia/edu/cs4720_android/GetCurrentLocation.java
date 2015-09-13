@@ -2,6 +2,7 @@ package cs4720.cs.virginia.edu.cs4720_android;
 
 /**
  * Created by reinaH on 9/13/15.
+ * code obtained from: http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates-city.html
  */
 
 import java.io.IOException;
@@ -97,11 +98,6 @@ public class GetCurrentLocation extends Activity
 
     /*----Method to Check GPS is enable or disable ----- */
     private Boolean displayGpsStatus() {
-//        ContentResolver contentResolver = getBaseContext()
-//                .getContentResolver();
-//        boolean gpsStatus = Settings.Secure
-//                .isLocationProviderEnabled(contentResolver,
-//                        LocationManager.GPS_PROVIDER);
 
         Context context = this;
         LocationManager mlocManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);;
