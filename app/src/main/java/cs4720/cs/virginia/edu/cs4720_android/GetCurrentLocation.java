@@ -18,6 +18,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -46,11 +47,12 @@ public class GetCurrentLocation extends Activity
     private static final String TAG = "Debug";
     private Boolean flag = false;
 
+    private String start_val = "";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //if you want to lock screen for always Portrait mode
         setRequestedOrientation(ActivityInfo
@@ -66,8 +68,7 @@ public class GetCurrentLocation extends Activity
 
         locationMangaer = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
-
-    }
+    };
 
     // Lauren: not sure if this is the right place for this but it works
     /* When the up button is clicked it increases the number
@@ -77,6 +78,35 @@ public class GetCurrentLocation extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter the starting value:");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected;
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                start_val = input.getText().toString();
+                TextView num = (TextView)findViewById(R.id.number);
+                num.setText(start_val);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+
         ImageButton upButton = (ImageButton) findViewById(R.id.up);
 
         upButton.setOnClickListener(new OnClickListener() {
