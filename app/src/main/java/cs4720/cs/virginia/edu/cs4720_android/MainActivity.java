@@ -1,7 +1,5 @@
 package cs4720.cs.virginia.edu.cs4720_android;
 
-
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,15 +37,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-//
-//    public void startService(View view) {
-//        Intent intent = new Intent(this, GetCurrentLocation.class);
-//        startService(intent);
-//    }
-//
-//    public void stopService(View view) {
-//        Intent intent = new Intent(this, GetCurrentLocation.class);
-//        stopService(intent);
-
-
-    }
+}

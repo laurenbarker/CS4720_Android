@@ -2,7 +2,8 @@ package cs4720.cs.virginia.edu.cs4720_android;
 
 /**
  * Created by reinaH on 9/13/15.
- * code obtained from: http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates-city.html
+ * SOURCE : http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates-city.html
+ * SOURCE :http://www.javacodegeeks.com/2010/09/android-location-based-services.html
  */
 
 import java.io.IOException;
@@ -31,163 +32,107 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class GetCurrentLocation extends Activity
-        implements OnClickListener {
+public class GetCurrentLocation extends Activity {
 
-    private LocationManager locationMangaer=null;
-    private LocationListener locationListener=null;
-
-    private Button btnGetLocation = null;
-    private EditText editLocation = null;
-    private ProgressBar pb =null;
-
-    private static final String TAG = "Debug";
-    private Boolean flag = false;
+    private LocationManager locationManager=null;
+    private Button btnGetLocation=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //if you want to lock screen for always Portrait mode
-        setRequestedOrientation(ActivityInfo
-                .SCREEN_ORIENTATION_PORTRAIT);
-
-        pb = (ProgressBar) findViewById(R.id.progressBar1);
-        pb.setVisibility(View.INVISIBLE);
-
-        editLocation = (EditText) findViewById(R.id.editTextLocation);
+        //to lock screen on Portrait mode
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btnGetLocation = (Button) findViewById(R.id.btnLocation);
-        btnGetLocation.setOnClickListener(this);
 
-        locationMangaer = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        flag = displayGpsStatus();
-        if (flag) {
-
-            Log.v(TAG, "onClick");
-
-            editLocation.setText("Please!! move your device to" +
-                    " see the changes in coordinates." + "\nWait..");
-
-            pb.setVisibility(View.VISIBLE);
-            locationListener = new MyLocationListener();
-
-            if (displayGpsStatus()){
-                try{
-                    locationMangaer.requestLocationUpdates(LocationManager
-                            .GPS_PROVIDER, 5000, 10, locationListener);
-                } catch (final SecurityException ex){
-                    Log.i("GetCurrentLocation","Sorry, application does not have permissions to send to this destination.");
-
-                }
+        if (displayGpsStatus()){
+            try{
+                locationManager.requestLocationUpdates(LocationManager
+                        .GPS_PROVIDER, 5000, 10, new MyLocationListener());
+            } catch (final SecurityException e) {
+                Log.i("GetCurrentLocation", "Sorry, application does not have permissions to send to this destination.");
             }
-
-        } else {
-            alertbox("Gps Status!!", "Your GPS is: OFF");
         }
 
+        btnGetLocation.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCurrentLocation();
+            }
+        });
     }
 
-    /*----Method to Check GPS is enable or disable ----- */
-    private Boolean displayGpsStatus() {
+    protected void showCurrentLocation() {
+        Location location=null;
+
+
+        if (displayGpsStatus()){
+            try{
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            } catch (final SecurityException e) {
+                Log.i("GetCurrentLocation", "application does not have GPS permission.");
+
+            }}
+
+        if (location != null) {
+            String message = String.format("Current Location \n Longitude: %1$s \nLatitude: %2$s",
+                    location.getLongitude(),location.getLatitude());
+            Toast.makeText(GetCurrentLocation.this, message, Toast.LENGTH_LONG).show();
+        }
+        }
+
+
+    /*----Check if GPS is enabled or disabled ----- */
+    private Boolean displayGpsStatus(){
 
         Context context = this;
-        LocationManager mlocManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);;
-        boolean gpsStatus = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        LocationManager locManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);;
+        boolean gpsStatus = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
         if (gpsStatus) {
             return true;
-
         } else {
             return false;
         }
-
     }
 
-    /*----------Method to create an AlertBox ------------- */
-    protected void alertbox(String title, String mymessage) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your Device's GPS is Disable")
-                .setCancelable(false)
-                .setTitle("** Gps Status **")
-                .setPositiveButton("Gps On",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // finish the current activity
-                                // AlertBoxAdvance.this.finish();
-                                Intent myIntent = new Intent(
-                                        Settings.ACTION_SECURITY_SETTINGS);
-                                startActivity(myIntent);
-                                dialog.cancel();
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // cancel the dialog box
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     /*----------Listener class to get coordinates ------------- */
     private class MyLocationListener implements LocationListener {
+
         @Override
         public void onLocationChanged(Location loc) {
+            String message = String.format("Current Location \n Longitude: %1$s \nLatitude: %2$s",
+                    loc.getLongitude(),loc.getLatitude());
+            Toast.makeText(GetCurrentLocation.this, message, Toast.LENGTH_LONG).show();
 
-            editLocation.setText("");
-            pb.setVisibility(View.INVISIBLE);
-            Toast.makeText(getBaseContext(),"Location changed : Lat: " +
-                            loc.getLatitude()+ " Lng: " + loc.getLongitude(),
-                    Toast.LENGTH_SHORT).show();
-            String longitude = "Longitude: " +loc.getLongitude();
-            Log.v(TAG, longitude);
-            String latitude = "Latitude: " +loc.getLatitude();
-            Log.v(TAG, latitude);
-
-    /*----------to get City-Name from coordinates ------------- */
-            String cityName=null;
-            Geocoder gcd = new Geocoder(getBaseContext(),
-                    Locale.getDefault());
-            List<Address>  addresses;
-            try {
-                addresses = gcd.getFromLocation(loc.getLatitude(), loc
-                        .getLongitude(), 1);
-                if (addresses.size() > 0)
-                    System.out.println(addresses.get(0).getLocality());
-                cityName=addresses.get(0).getLocality();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            String s = longitude+"\n"+latitude +
-                    "\n\nMy Currrent City is: "+cityName;
-            editLocation.setText(s);
         }
 
         @Override
         public void onProviderDisabled(String provider) {
             // TODO Auto-generated method stub
+            Toast.makeText(GetCurrentLocation.this, "Provider disabled by the user. GPS turned off.",
+                    Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onProviderEnabled(String provider) {
             // TODO Auto-generated method stub
+            Toast.makeText(GetCurrentLocation.this, "Provider enabled by the user. GPS turned on.",
+                    Toast.LENGTH_LONG).show();
         }
 
         @Override
-        public void onStatusChanged(String provider,
-                                    int status, Bundle extras) {
+        public void onStatusChanged(String provider, int status, Bundle extras) {
             // TODO Auto-generated method stub
+            Toast.makeText(GetCurrentLocation.this, "Provider status changed",
+                    Toast.LENGTH_LONG).show();
+
         }
     }
+
 }
