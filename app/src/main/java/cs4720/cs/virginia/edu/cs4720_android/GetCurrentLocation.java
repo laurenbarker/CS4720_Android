@@ -8,18 +8,13 @@ package cs4720.cs.virginia.edu.cs4720_android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -135,7 +130,7 @@ public class GetCurrentLocation extends Activity {
         }
     }
 
-    // Lauren: not sure if this is the right place for this but it works
+
     /* When the up button is clicked it increases the number
      * when the down button is clicked it decreases the number
      */

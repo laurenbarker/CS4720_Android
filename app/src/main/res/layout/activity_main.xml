@@ -5,13 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:weightSum="1">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Get Current Location"
-        android:layout_weight="0.20"
-        android:gravity="center"
-        android:textSize="20sp" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -49,29 +43,21 @@
         android:src="@android:drawable/arrow_down_float" />
 
 
-    <LinearLayout
-        android:id="@+id/layButtonH"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:gravity="center"
-        android:layout_weight="0.15">
+    <RelativeLayout
+        android:layout_width="283dp"
+        android:layout_height="196dp"
+        android:layout_gravity="center_horizontal">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Location"
-            android:id="@+id/btnLocation">
+            android:id="@+id/btnLocation"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp">
         </Button>
-    </LinearLayout>
-<!--<LinearLayout-->
-        <!--android:id="@+id/layloadingH"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.20"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:gravity="center">-->
-        <!--<ProgressBar-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:id="@+id/progressBar1"-->
-            <!--android:layout_height="wrap_content">-->
-        <!--</ProgressBar>-->
-    <!--</LinearLayout>-->
+    </RelativeLayout>
+
 </LinearLayout>
