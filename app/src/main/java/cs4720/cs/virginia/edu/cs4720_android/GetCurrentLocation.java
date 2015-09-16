@@ -6,10 +6,6 @@ package cs4720.cs.virginia.edu.cs4720_android;
  * SOURCE :http://www.javacodegeeks.com/2010/09/android-location-based-services.html
  */
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -24,18 +20,24 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GetCurrentLocation extends Activity {
 
     private LocationManager locationManager=null;
     private Button btnGetLocation=null;
+
+    private String start_val = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,6 @@ public class GetCurrentLocation extends Activity {
                 Log.i("GetCurrentLocation", "Sorry, application does not have permissions to send to this destination.");
             }
         }
-
         btnGetLocation.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +84,7 @@ public class GetCurrentLocation extends Activity {
                     location.getLongitude(),location.getLatitude());
             Toast.makeText(GetCurrentLocation.this, message, Toast.LENGTH_LONG).show();
         }
-        }
+    }
 
 
     /*----Check if GPS is enabled or disabled ----- */
@@ -99,7 +100,6 @@ public class GetCurrentLocation extends Activity {
             return false;
         }
     }
-
 
     /*----------Listener class to get coordinates ------------- */
     private class MyLocationListener implements LocationListener {
@@ -134,5 +134,72 @@ public class GetCurrentLocation extends Activity {
 
         }
     }
+
+    // Lauren: not sure if this is the right place for this but it works
+    /* When the up button is clicked it increases the number
+     * when the down button is clicked it decreases the number
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter the starting value:");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected;
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                start_val = input.getText().toString();
+                TextView num = (TextView)findViewById(R.id.number);
+                num.setText(start_val);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+
+        ImageButton upButton = (ImageButton) findViewById(R.id.up);
+
+        upButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView num = (TextView)findViewById(R.id.number);
+                Integer orgNum = Integer.parseInt(num.getText().toString());
+                Integer newNum = orgNum + 1;
+                num.setText(newNum.toString());
+            }
+
+        });
+        ImageButton downButton = (ImageButton) findViewById(R.id.down);
+
+        downButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView num = (TextView) findViewById(R.id.number);
+                Integer orgNum = Integer.parseInt(num.getText().toString());
+                Integer newNum = orgNum - 1;
+                num.setText(newNum.toString());
+            }
+        });
+
+        return true;
+    }
+
 
 }
