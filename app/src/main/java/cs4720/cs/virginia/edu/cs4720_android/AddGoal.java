@@ -1,7 +1,6 @@
 package cs4720.cs.virginia.edu.cs4720_android;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 /**
  * Created by laurenbarker on 9/21/15.
@@ -20,7 +18,6 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
     public final static String EXTRA_GOAL = ".GOAL";
     public final static String EXTRA_UNIT = ".UNIT";
     public final static String EXTRA_INCREMENT = ".INCREMENT";
-    public final static String EXTRA_BACKGROUND = ".BACKGROUND";
     public final static String EXTRA_INTERVAL = ".INTERVAL";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +35,17 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         spinner_interval.setAdapter(adapter_interval);
         spinner_interval.setOnItemSelectedListener(this);
 
-        // background spinner
-        Spinner spinner_background = (Spinner) findViewById(R.id.spinner_background);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter_background = ArrayAdapter.createFromResource(this,
-                R.array.array_background, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter_background.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner_background.setAdapter(adapter_background);
-        spinner_background.setOnItemSelectedListener(this);
-
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         String selected = (String) parent.getItemAtPosition(pos);
 
-        // toast
-        Context context = getApplicationContext();
-        CharSequence text = selected;
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+//        // toast
+//        Context context = getApplicationContext();
+//        CharSequence text = selected;
+//        int duration = Toast.LENGTH_SHORT;
+//
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -83,9 +67,6 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         // increment
         EditText editIncrement = (EditText) findViewById(R.id.input_increment);
         String increment = editIncrement.getText().toString();
-        // background
-        Spinner editBackground = (Spinner) findViewById(R.id.spinner_background);
-        String background = editBackground.getSelectedItem().toString();
         // interval
         Spinner editInterval = (Spinner) findViewById(R.id.spinner_interval);
         String interval = editInterval.getSelectedItem().toString();
@@ -95,9 +76,15 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         extras.putString(EXTRA_GOAL, goal);
         extras.putString(EXTRA_UNIT, unit);
         extras.putString(EXTRA_INCREMENT, increment);
-        extras.putString(EXTRA_BACKGROUND, background);
         extras.putString(EXTRA_INTERVAL, interval);
         intent.putExtras(extras);
+
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Delete button */
+    public void deleteGoal(View view) {
+        Intent intent = new Intent(this, DashActivity.class);
 
         startActivity(intent);
     }

@@ -102,24 +102,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Background:"
-            android:id="@+id/label_background"
-            android:layout_marginLeft="32dp" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_background"
-            android:layout_gravity="center_horizontal"
-            android:spinnerMode="dropdown"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginBottom="32dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Interval:"
             android:id="@+id/label_interval"
             android:layout_marginLeft="32dp" />
@@ -150,7 +132,8 @@
             android:id="@+id/delete"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="deleteGoal" />
 
     </LinearLayout>
 </ScrollView>

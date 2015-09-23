@@ -4,8 +4,34 @@
     android:layout_height="50dp"
     android:orientation="horizontal" >
 
-    <EditText
-        android:id="@+id/editText"
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Up"
+        android:id="@+id/button_up"
+        android:layout_gravity="left"
+        android:layout_marginLeft="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Goal"
+        android:id="@+id/text_goal"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Down"
+        android:id="@+id/button_down"
+        android:layout_marginRight="32dp" />
+
+    <TextView
+        android:id="@+id/view_description"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -13,15 +39,7 @@
         android:ems="10"
         android:hint="" >
         <requestFocus />
-    </EditText>
-
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.15"
-        android:entries="@array/array_interval"
-        android:gravity="right" />
+    </TextView>
 
     <ImageButton
         android:id="@+id/buttonDelete"
