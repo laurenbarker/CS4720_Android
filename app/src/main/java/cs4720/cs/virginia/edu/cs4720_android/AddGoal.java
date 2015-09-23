@@ -80,7 +80,7 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
 
     /** Called when the user clicks the Save button */
     public void saveGoal(View view) {
-        Intent intent = new Intent(this, GetCurrentLocation.class);
+        Intent intent = new Intent(this, MainActivity.class);
         // title
         EditText editTitle = (EditText) findViewById(R.id.input_title);
         String title = editTitle.getText().toString();

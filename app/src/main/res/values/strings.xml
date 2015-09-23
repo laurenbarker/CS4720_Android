@@ -26,4 +26,14 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <string name="title_activity_main">Dynamic Views</string>
+    <string name="button_add_new_text">Add new</string>
+    <string name="button_delete_row_description">Delete</string>
+    <string-array name="categories">
+        <item >HOME</item>
+        <item >WORK</item>
+        <item >MOBILE</item>
+        <item >OTHER</item>
+    </string-array>
 </resources>
