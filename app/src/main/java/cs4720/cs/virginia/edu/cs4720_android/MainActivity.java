@@ -1,4 +1,6 @@
 package cs4720.cs.virginia.edu.cs4720_android;
+import cs4720.cs.virginia.edu.cs4720_android.AddGoal;
+
 //
 //
 //
@@ -52,7 +54,8 @@ package cs4720.cs.virginia.edu.cs4720_android;
 //}
 
 
-
+import android.content.Intent;
+import android.widget.TextView;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -75,6 +78,7 @@ public class MainActivity extends Activity {
     // The "Add new" button
     private Button mAddButton;
 
+//    private Button goal_activity;
     // There always should be only one empty row, other empty rows will
     // be removed.
     private View mExclusiveEmptyView;
@@ -83,14 +87,48 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        setContentView(R.layout.activity_add_goal);
         setContentView(R.layout.row_container);
+//        addListenerOnButton();
 
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
         mAddButton = (Button) findViewById(R.id.btnAddNewItem);
 
         // Add some examples
-        inflateEditRow("Xiaochao");
-        inflateEditRow("Yang");
+        inflateEditRow("Work 10 hours each week");
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        // get values from form
+        if (extras != null) {
+            String title = extras.getString(AddGoal.EXTRA_TITLE);
+            String goal = extras.getString(AddGoal.EXTRA_GOAL);
+            String unit = extras.getString(AddGoal.EXTRA_UNIT);
+            TextView textView = new TextView(this);
+            textView.setText(title + goal + unit);
+            setContentView(textView);
+        }
+    }
+
+//    public void addListenerOnButton(){
+//
+//        final Context context = this;
+//        addG = (Button) findViewById(R.id.main_add_goal1);
+//        addG.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent  intent = new Intent (context, AddGoal.class);
+//                    startActivity(intent);
+//            }
+//        });
+//
+//    }
+
+
+        /** Called when the user clicks the Add Goal button */
+    public void newGoal(View view) {
+        Intent intent = new Intent(this, AddGoal.class);
+        startActivity(intent);
     }
 
     @Override

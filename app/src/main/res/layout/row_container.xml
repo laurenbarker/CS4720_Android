@@ -7,17 +7,29 @@
     android:orientation="vertical" >
 
     <Button
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:text="Add Goal"
+        android:id="@+id/main_add_goal"
+        android:layout_gravity="right"
+        android:onClick="newGoal" />
+
+    <Button
         android:id="@+id/btnAddNewItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/transparent_background"
         android:gravity="center_vertical|left"
-        android:onClick="onAddNewClicked"
         android:paddingLeft="5dp"
         android:text="@string/button_add_new_text"
+        android:onClick="onAddNewClicked"
         android:textColor="@android:color/darker_gray" />
 
 </LinearLayout>
+
+
+    <!--android:onClick="onAddNewClicked"-->
+    <!--android:background="@drawable/transparent_background"-->
+
