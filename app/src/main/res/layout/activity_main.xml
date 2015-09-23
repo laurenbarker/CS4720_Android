@@ -6,13 +6,13 @@
     android:layout_height="fill_parent"
     android:weightSum="1">
 
-    <!--<Button-->
-        <!--android:layout_width="128dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Add Goal"-->
-        <!--android:id="@+id/main_add_goal"-->
-        <!--android:layout_gravity="right"-->
-        <!--android:onClick="newGoal" />-->
+    <Button
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:text="Add Goal"
+        android:id="@+id/main_add_goal"
+        android:layout_gravity="right"
+        android:onClick="onClick" />
 
     <!--<TextView-->
         <!--android:layout_width="fill_parent"-->
