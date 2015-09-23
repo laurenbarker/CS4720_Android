@@ -49,16 +49,6 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         spinner_background.setAdapter(adapter_background);
         spinner_background.setOnItemSelectedListener(this);
 
-        // increment spinner
-        Spinner spinner_increment = (Spinner) findViewById(R.id.spinner_increment);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter_increment = ArrayAdapter.createFromResource(this,
-                R.array.array_increment, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter_increment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner_increment.setAdapter(adapter_background);
-        spinner_increment.setOnItemSelectedListener(this);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -80,7 +70,7 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
 
     /** Called when the user clicks the Save button */
     public void saveGoal(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DashActivity.class);
         // title
         EditText editTitle = (EditText) findViewById(R.id.input_title);
         String title = editTitle.getText().toString();
@@ -91,11 +81,11 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         EditText editUnit = (EditText) findViewById(R.id.input_unit);
         String unit = editUnit.getText().toString();
         // increment
+        EditText editIncrement = (EditText) findViewById(R.id.input_increment);
+        String increment = editIncrement.getText().toString();
+        // background
         Spinner editBackground = (Spinner) findViewById(R.id.spinner_background);
         String background = editBackground.getSelectedItem().toString();
-        // background
-        Spinner editIncrement = (Spinner) findViewById(R.id.spinner_increment);
-        String increment = editIncrement.getSelectedItem().toString();
         // interval
         Spinner editInterval = (Spinner) findViewById(R.id.spinner_interval);
         String interval = editInterval.getSelectedItem().toString();

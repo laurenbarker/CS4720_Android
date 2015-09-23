@@ -8,30 +8,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import android.content.Intent;
-import android.widget.TextView;
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.view.View.OnClickListener;
-
-import cs4720.cs.virginia.edu.cs4720_android.R;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class DashActivity extends Activity implements OnClickListener {
 
@@ -67,8 +49,12 @@ public class DashActivity extends Activity implements OnClickListener {
             String title = extras.getString(AddGoal.EXTRA_TITLE);
             String goal = extras.getString(AddGoal.EXTRA_GOAL);
             String unit = extras.getString(AddGoal.EXTRA_UNIT);
+            String increment = extras.getString(AddGoal.EXTRA_INCREMENT);
+            String background = extras.getString(AddGoal.EXTRA_BACKGROUND);
+            String interval = extras.getString(AddGoal.EXTRA_INTERVAL);
+            
             TextView textView = new TextView(this);
-            textView.setText(title + goal + unit);
+            textView.setText(title + ' ' + goal + ' ' + unit + ' ' + increment + ' ' + background + ' ' + interval);
             setContentView(textView);
         }
     }

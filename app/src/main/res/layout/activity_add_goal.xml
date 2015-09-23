@@ -88,15 +88,15 @@
             android:id="@+id/label_increment"
             android:layout_marginLeft="32dp" />
 
-        <Spinner
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/spinner_increment"
-            android:spinnerMode="dropdown"
+            android:id="@+id/input_increment"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center_horizontal"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:layout_width="wrap_content"
