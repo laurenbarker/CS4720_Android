@@ -5,6 +5,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:weightSum="1">
+
+    <Button
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:text="Add Goal"
+        android:id="@+id/add_goal"
+        android:layout_gravity="right"
+        android:onClick="newGoal" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

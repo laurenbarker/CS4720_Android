@@ -34,8 +34,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class GetCurrentLocation extends Activity
-        implements OnClickListener {
+public class GetCurrentLocation extends Activity implements OnClickListener {
 
     private LocationManager locationMangaer=null;
     private LocationListener locationListener=null;
@@ -68,6 +67,18 @@ public class GetCurrentLocation extends Activity
 
         locationMangaer = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        // get values from form
+        if (extras != null) {
+            String title = extras.getString(AddGoal.EXTRA_TITLE);
+            String goal = extras.getString(AddGoal.EXTRA_GOAL);
+            String unit = extras.getString(AddGoal.EXTRA_UNIT);
+            TextView textView = new TextView(this);
+            textView.setText(title + goal + unit);
+            setContentView(textView);
+        }
     };
 
     // Lauren: not sure if this is the right place for this but it works
@@ -93,7 +104,7 @@ public class GetCurrentLocation extends Activity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 start_val = input.getText().toString();
-                TextView num = (TextView)findViewById(R.id.number);
+                TextView num = (TextView) findViewById(R.id.number);
                 num.setText(start_val);
             }
         });
@@ -136,6 +147,12 @@ public class GetCurrentLocation extends Activity
         return true;
     }
 
+    /** Called when the user clicks the Add Goal button */
+    public void newGoal(View view) {
+        Intent intent = new Intent(this, AddGoal.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         flag = displayGpsStatus();
@@ -143,7 +160,7 @@ public class GetCurrentLocation extends Activity
 
             Log.v(TAG, "onClick");
 
-            editLocation.setText("Please!! move your device to"+
+            editLocation.setText("Please!! move your device to" +
                     " see the changes in coordinates."+"\nWait..");
 
             pb.setVisibility(View.VISIBLE);

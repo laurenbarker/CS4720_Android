@@ -1,7 +1,29 @@
 <resources>
     <string name="app_name">CS4720_Android</string>
+    <string name="activity_add_goal">Add Goal</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="change_number">Click the up and down arrows to change the number!</string>
+    <string-array name="array_interval">
+        <item>Day</item>
+        <item>Work Week</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
+    <string-array name="array_background">
+        <item>White</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Red</item>
+        <item>Green</item>
+    </string-array>
+    <string-array name="array_increment">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>
