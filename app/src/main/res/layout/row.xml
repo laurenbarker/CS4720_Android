@@ -41,6 +41,12 @@
         <requestFocus />
     </TextView>
 
-
+    <ImageButton
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/content_remove"
+        android:contentDescription="@string/button_delete_row_description"
+        android:onClick="onDeleteClicked"/>
 
 </LinearLayout>

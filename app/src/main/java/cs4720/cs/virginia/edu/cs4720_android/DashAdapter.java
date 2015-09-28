@@ -2,6 +2,7 @@ package cs4720.cs.virginia.edu.cs4720_android;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.view.ViewGroup;
@@ -40,5 +41,6 @@ public class DashAdapter extends ArrayAdapter<Goal>{
         return convertView;
 
     }
+
 
 }

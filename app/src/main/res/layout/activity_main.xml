@@ -10,12 +10,14 @@
         android:layout_height="wrap_content"
         android:text="Add Item"
         android:id="@+id/button"
-        android:onClick="addItem"/>
+        android:onClick="onClick"/>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
         android:name="cs4720.cs.virginia.edu.cs4720_android.MainActivityFragment"
         tools:layout="@layout/fragment_main" android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 
 </LinearLayout>

@@ -37,13 +37,49 @@ public class Goal {
         this.GOAL_TEXT = null;
     }
 
-    public void setGoalText(String GOAL_TEXT ){
+    //SETTERS
+    public void setGOAL_TEXT(String GOAL_TEXT ){
         this.GOAL_TEXT = GOAL_TEXT;
-
     }
 
-    public void setDescription(String DESCRIPTION ){
+    public void setDESCRIPTION(String DESCRIPTION ){
         this.DESCRIPTION = DESCRIPTION;
 
     }
+
+
+
+
+    //GETTERS
+    public String getDESCRIPTION(){
+        return DESCRIPTION;
+    }
+
+    public String getEXTRA_TITLE(){
+        return EXTRA_TITLE;
+    }
+
+    public String getEXTRA_GOAL(){
+        return EXTRA_GOAL;
+    }
+
+    public String getEXTRA_UNIT(){
+        return EXTRA_UNIT;
+    }
+
+    public String getEXTRA_INCREMENT(){
+        return EXTRA_INCREMENT;
+    }
+
+    public String getEXTRA_INTERVAL(){
+        return EXTRA_INTERVAL;
+    }
+
+    public String getGOAL_TEXT(){
+        return GOAL_TEXT;
+    }
+
+
+
+
 }
