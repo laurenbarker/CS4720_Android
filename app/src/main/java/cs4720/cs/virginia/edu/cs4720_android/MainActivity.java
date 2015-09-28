@@ -1,28 +1,21 @@
 package cs4720.cs.virginia.edu.cs4720_android;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.view.View.OnClickListener;
-
+import android.widget.ListView;
 
 import java.util.ArrayList;
-
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     // Construct the data source
-    ArrayList<Goal> arrayOfGoals = new ArrayList<Goal>();
+    //ArrayList<Goal> arrayOfGoals = new ArrayList<Goal>();
+    ArrayList<Goal> arrayOfGoals;
     DashAdapter adapter;
     ListView listView;
     // Create the adapter to convert the array to views
@@ -31,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (arrayOfGoals == null) {
+            arrayOfGoals = new ArrayList<Goal>();
+        }
 
         // Attach the adapter to a ListView
         listView = (ListView) findViewById(R.id.listView);
@@ -41,9 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-
-
-
+        
 
         // get values from form
         if (extras != null) {
@@ -54,51 +49,52 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             String interval = extras.getString(AddGoal.EXTRA_INTERVAL);
 
             String describe_goal = title + " " + goal + " " + unit + " per " +  interval;
-            newRow(describe_goal, goal, increment);
+            addItem(title, goal, unit, increment, interval, describe_goal);
         }
 
     }
 
+    /** Called when the user clicks the Add Goal button */
     public void onClick(View view) {
-        Intent intent = new Intent(this, Goal.class);
+        Intent intent = new Intent(this, AddGoal.class);
         startActivity(intent);
     }
 
-    public void onClickUp(View view) {
-        Button upButton = (Button) row.findViewById(R.id.button_up);
-        Integer randomNum = 1 + (int)(Math.random()*100000000);
-        upButton.setId(randomNum);
-        if (upButton != null) {
-            upButton.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    TextView num = (TextView) findViewById(R.id.text_goal);
-                    Double orgNum = Double.parseDouble(num.getText().toString());
-                    Double newNum = orgNum + Double.parseDouble(interval);
-                    num.setText(newNum.toString());
-                }
-
-            });
-        }
-    }
-
-    public void onClickDown(View view) {
-        // down on click
-        Button downButton = (Button) rowView.findViewById(R.id.button_down);
-        downButton.setId(randomNum+2);
-        downButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                TextView num = (TextView) findViewById(R.id.text_goal);
-                Double orgNum = Double.parseDouble(num.getText().toString());
-                Double newNum = orgNum - Double.parseDouble(interval);
-                num.setText(newNum.toString());
-            }
-
-        });
-    }
+//    public void onClickUp(View view) {
+//        Button upButton = (Button) row.findViewById(R.id.button_up);
+//        Integer randomNum = 1 + (int)(Math.random()*100000000);
+//        upButton.setId(randomNum);
+//        if (upButton != null) {
+//            upButton.setOnClickListener(new OnClickListener() {
+//
+//                @Override
+//                public void onClick(View view) {
+//                    TextView num = (TextView) findViewById(R.id.text_goal);
+//                    Double orgNum = Double.parseDouble(num.getText().toString());
+//                    Double newNum = orgNum + Double.parseDouble(interval);
+//                    num.setText(newNum.toString());
+//                }
+//
+//            });
+//        }
+//    }
+//
+//    public void onClickDown(View view) {
+//        // down on click
+//        Button downButton = (Button) rowView.findViewById(R.id.button_down);
+//        downButton.setId(randomNum+2);
+//        downButton.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                TextView num = (TextView) findViewById(R.id.text_goal);
+//                Double orgNum = Double.parseDouble(num.getText().toString());
+//                Double newNum = orgNum - Double.parseDouble(interval);
+//                num.setText(newNum.toString());
+//            }
+//
+//        });
+//    }
 
 
     @Override
@@ -123,14 +119,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addItem(View view) {
-
-
-
-
+    public void addItem(String title, String goal, String unit, String increment, String interval, String describe_goal) {
 
 //        EditText editText = (EditText)findViewById(R.id.textView);
-        Goal a = new Goal();
+        Goal a = new Goal(title, goal, unit, increment, interval);
+        a.setDESCRIPTION(describe_goal);
         arrayOfGoals.add(a);
         adapter.notifyDataSetChanged();
 //        Log.d("BuildingListView", itemList.toString());
