@@ -1,92 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:weightSum="1">
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
 
     <Button
-        android:layout_width="128dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Goal"
-        android:id="@+id/main_add_goal"
-        android:layout_gravity="right"
-        android:onClick="onClick" />
+        android:text="Add Item"
+        android:id="@+id/button"
+        android:onClick="addItem"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/change_number"-->
-        <!--android:layout_weight="0.20"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="20sp" />-->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
+        android:name="cs4720.cs.virginia.edu.cs4720_android.MainActivityFragment"
+        tools:layout="@layout/fragment_main" android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!--<ImageButton-->
-        <!--style="?android:attr/buttonStyleSmall"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:id="@+id/up"-->
-        <!--android:layout_gravity="right"-->
-        <!--android:elegantTextHeight="false"-->
-        <!--android:drawableTint="@android:drawable/arrow_up_float"-->
-        <!--android:src="@android:drawable/arrow_up_float" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-        <!--android:text="10"-->
-        <!--android:id="@+id/number"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:textSize="50dp" />-->
-
-    <!--<ImageButton-->
-        <!--style="?android:attr/buttonStyleSmall"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:text="New Button"-->
-        <!--android:id="@+id/down"-->
-        <!--android:layout_gravity="right"-->
-        <!--android:src="@android:drawable/arrow_down_float" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Get Current Location and City Name"-->
-        <!--android:layout_weight="0.20"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="20sp" />-->
-    <!--<EditText-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.33"-->
-        <!--android:id="@+id/editTextLocation"-->
-        <!--android:editable="false">-->
-        <!--<requestFocus></requestFocus>-->
-    <!--</EditText>-->
-    <!--<LinearLayout-->
-        <!--android:id="@+id/layButtonH"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_weight="0.15">-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Get Location"-->
-            <!--android:id="@+id/btnLocation">-->
-        <!--</Button>-->
-    <!--</LinearLayout>-->
-    <!--<LinearLayout-->
-        <!--android:id="@+id/layloadingH"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.20"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:gravity="center">-->
-        <!--<ProgressBar-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:id="@+id/progressBar1"-->
-            <!--android:layout_height="wrap_content">-->
-        <!--</ProgressBar>-->
-    </LinearLayout>
+</LinearLayout>

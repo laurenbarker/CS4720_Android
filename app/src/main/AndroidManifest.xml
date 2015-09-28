@@ -1,42 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cs4720.cs.virginia.edu.cs4720_android"
-    android:versionCode="1"
-    android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="10" />
-
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-
-
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cs4720.cs.virginia.edu.cs4720_android" >
 
     <application
-        android:icon="@android:drawable/ic_menu_view"
-        android:label="@string/app_name">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".DashActivity"
-            android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddGoal"
-            android:label="@string/activity_add_goal"
-            android:parentActivityName=".DashActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashActivity" />
-        </activity>
-
-
     </application>
+
 </manifest>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<manifest-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--package="cs4720.cs.virginia.edu.cs4720_android"-->
+    <!--android:versionCode="1"-->
+    <!--android:versionName="1.0">-->
+    <!--<uses-sdk android:minSdkVersion="10" />-->
+
+
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+
+
+
+
+
+    <!--<application-->
+        <!--android:icon="@android:drawable/ic_menu_view"-->
+        <!--android:label="@string/app_name">-->
+        <!--<activity-->
+            <!--android:name=".DashActivity"-->
+            <!--android:label="@string/app_name">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!--<activity-->
+            <!--android:name=".AddGoal"-->
+            <!--android:label="@string/activity_add_goal"-->
+            <!--android:parentActivityName=".DashActivity" >-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".DashActivity" />-->
+        <!--</activity>-->
+
+
+    <!--</application>-->
+<!--</manifest>-->
