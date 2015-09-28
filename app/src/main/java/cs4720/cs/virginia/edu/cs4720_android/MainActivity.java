@@ -8,11 +8,19 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Set_Refresh_Data();
+    }
+
+    public void Set_Refresh_Data() {
+        db = new DatabaseHandler(getBaseContext());
+
+        db.close();
     }
 
     @Override
