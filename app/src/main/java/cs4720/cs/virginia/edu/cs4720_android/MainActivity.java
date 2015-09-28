@@ -1,5 +1,7 @@
 package cs4720.cs.virginia.edu.cs4720_android;
+
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     ArrayList<Goal> arrayOfGoals;
     DashAdapter adapter;
     ListView listView;
+    SQLiteDatabase db;
     // Create the adapter to convert the array to views
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +41,27 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        
+
 
         // get values from form
         if (extras != null) {
             String title = extras.getString(AddGoal.EXTRA_TITLE);
-            String goal = extras.getString(AddGoal.EXTRA_GOAL);
+            Double goal = Double.parseDouble(extras.getString(AddGoal.EXTRA_GOAL));
             String unit = extras.getString(AddGoal.EXTRA_UNIT);
-            String increment = extras.getString(AddGoal.EXTRA_INCREMENT);
+            Double increment = Double.parseDouble(extras.getString(AddGoal.EXTRA_INCREMENT));
             String interval = extras.getString(AddGoal.EXTRA_INTERVAL);
 
             String describe_goal = title + " " + goal + " " + unit + " per " +  interval;
             addItem(title, goal, unit, increment, interval, describe_goal);
         }
 
+        Set_Refresh_Data();
+
+    }
+
+    public void Set_Refresh_Data() {
+        db = new DatabaseHandler(this).getWritableDatabase();
+        db.close();
     }
 
     /** Called when the user clicks the Add Goal button */
@@ -119,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addItem(String title, String goal, String unit, String increment, String interval, String describe_goal) {
+    public void addItem(String title, Double goal, String unit, Double increment, String interval, String describe_goal) {
 
 //        EditText editText = (EditText)findViewById(R.id.textView);
         Goal a = new Goal(title, goal, unit, increment, interval);
