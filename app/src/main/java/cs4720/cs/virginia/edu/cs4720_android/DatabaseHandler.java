@@ -25,8 +25,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "GoalReader.db";
 
 
-    // Contacts table name
-    private static final String TABLE_GOALS = "entry";
+    // Goals table name
+    private static final String TABLE_GOALS = GoalEntry.TABLE_NAME;
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + GoalEntry.TABLE_NAME + " (" +
@@ -73,7 +73,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_GOALS, null, values);
         db.close(); // Closing database connection
+
     }
+
 
     // Getting single goal
     Goal Get_Goal(int id) {
@@ -98,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All Goals
-    public ArrayList<Goal> Get_Contacts() {
+    public ArrayList<Goal> Get_Goals() {
         try {
             goal_list.clear();
 
