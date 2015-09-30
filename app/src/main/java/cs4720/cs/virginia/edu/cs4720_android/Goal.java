@@ -13,6 +13,7 @@ public class Goal {
     public Double EXTRA_INCREMENT = 0.0;
     public String EXTRA_INTERVAL = "";
     public String GOAL_TEXT = "";
+    public Double EXTRA_CURRENT = 0.0;
     public String DESCRIPTION = "";
     public Integer _id = null;
 
@@ -24,6 +25,7 @@ public class Goal {
         this.EXTRA_UNIT = "";
         this.EXTRA_INCREMENT = 0.0;
         this.EXTRA_INTERVAL = "";
+        this.EXTRA_CURRENT = 0.0;
         this.DESCRIPTION = "";
         this.GOAL_TEXT = "";
 
@@ -36,6 +38,7 @@ public class Goal {
         this.EXTRA_UNIT = EXTRA_UNIT;
         this.EXTRA_INCREMENT = EXTRA_INCREMENT;
         this.EXTRA_INTERVAL = EXTRA_INTERVAL;
+        this.EXTRA_CURRENT = 0.0;
         this.DESCRIPTION = null;
         this.GOAL_TEXT = null;
     }
@@ -76,6 +79,8 @@ public class Goal {
         this._id = _id;
     }
 
+    public void setCurrent(Double current ) { this.EXTRA_CURRENT = current; }
+
     public void setDESCRIPTION(String DESCRIPTION ){
         this.DESCRIPTION = DESCRIPTION;
     }
@@ -110,6 +115,10 @@ public class Goal {
 
     public String getEXTRA_INTERVAL(){
         return EXTRA_INTERVAL;
+    }
+
+    public Double getEXTRA_CURRENT(){
+        return EXTRA_CURRENT;
     }
 
     public String getGOAL_TEXT(){

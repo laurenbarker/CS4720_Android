@@ -21,7 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final ArrayList<Goal> goal_list = new ArrayList<Goal>();
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "GoalReader.db";
 
 
@@ -35,7 +35,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     GoalEntry.COLUMN_NAME_GOAL + REAL_TYPE + COMMA_SEP +
                     GoalEntry.COLUMN_NAME_UNIT + TEXT_TYPE + COMMA_SEP +
                     GoalEntry.COLUMN_NAME_INCREMENT + REAL_TYPE + COMMA_SEP +
-                    GoalEntry.COLUMN_NAME_INTERVAL + TEXT_TYPE +
+                    GoalEntry.COLUMN_NAME_INTERVAL + TEXT_TYPE + COMMA_SEP +
+                    GoalEntry.COLUMN_NAME_CURRENT_VALUE + REAL_TYPE +
                     " )";
 
     private static final String SQL_DELETE_ENTRIES =
@@ -68,6 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
         values.put(GoalEntry.COLUMN_NAME_INCREMENT, goal.getEXTRA_INCREMENT());
         values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
+        values.put(GoalEntry.COLUMN_NAME_CURRENT_VALUE, goal.getEXTRA_CURRENT());
 
         // Inserting Row
         db.insert(TABLE_GOALS, null, values);
@@ -83,19 +85,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_GOALS, new String[] { GoalEntry._ID,
                         GoalEntry.COLUMN_NAME_TITLE, GoalEntry.COLUMN_NAME_GOAL,
                         GoalEntry.COLUMN_NAME_UNIT, GoalEntry.COLUMN_NAME_INCREMENT,
-                        GoalEntry.COLUMN_NAME_INTERVAL }, GoalEntry._ID + "=?",
+                        GoalEntry.COLUMN_NAME_INTERVAL, GoalEntry.COLUMN_NAME_CURRENT_VALUE }, GoalEntry._ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Goal contact = new Goal(Integer.parseInt(cursor.getString(0)),
+        Goal goal = new Goal(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), Double.parseDouble(cursor.getString(2)), cursor.getString(3),
                 Double.parseDouble(cursor.getString(4)), cursor.getString(5));
+        goal.setCurrent(cursor.getDouble(6));
         // return contact
         cursor.close();
         db.close();
 
-        return contact;
+        return goal;
     }
 
     // Getting All Goals
@@ -119,6 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     goal.setUnit(cursor.getString(3));
                     goal.setIncrement(Double.parseDouble(cursor.getString(4)));
                     goal.setInterval(cursor.getString(5));
+                    goal.setCurrent(Double.parseDouble(cursor.getString(6)));
                     // Adding contact to list
                     goal_list.add(goal);
                 } while (cursor.moveToNext());
@@ -147,6 +151,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
         values.put(GoalEntry.COLUMN_NAME_INCREMENT, goal.getEXTRA_INCREMENT());
         values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
+        values.put(GoalEntry.COLUMN_NAME_CURRENT_VALUE, goal.getEXTRA_CURRENT());
 
         // updating row
         return db.update(TABLE_GOALS, values, GoalEntry._ID + " = ?",
@@ -160,10 +165,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(GoalEntry._ID, goal.getID());
         values.put(GoalEntry.COLUMN_NAME_TITLE, goal.getEXTRA_TITLE());
-        values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL() + goal.getEXTRA_INCREMENT());
+        values.put(GoalEntry.COLUMN_NAME_CURRENT_VALUE, goal.getEXTRA_CURRENT() + goal.getEXTRA_INCREMENT());
         values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
         values.put(GoalEntry.COLUMN_NAME_INCREMENT, goal.getEXTRA_INCREMENT());
         values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
+        values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL());
 
         // updating row
         return db.update(TABLE_GOALS, values, GoalEntry._ID + " = ?",
@@ -177,10 +183,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(GoalEntry._ID, goal.getID());
         values.put(GoalEntry.COLUMN_NAME_TITLE, goal.getEXTRA_TITLE());
-        values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL() - goal.getEXTRA_INCREMENT());
+        values.put(GoalEntry.COLUMN_NAME_CURRENT_VALUE, goal.getEXTRA_CURRENT() - goal.getEXTRA_INCREMENT());
         values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
         values.put(GoalEntry.COLUMN_NAME_INCREMENT, goal.getEXTRA_INCREMENT());
         values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
+        values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL());
 
         // updating row
         return db.update(TABLE_GOALS, values, GoalEntry._ID + " = ?",

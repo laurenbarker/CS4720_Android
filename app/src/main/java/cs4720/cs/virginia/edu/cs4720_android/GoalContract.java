@@ -19,6 +19,7 @@ public final class GoalContract {
         public static final String COLUMN_NAME_UNIT = "unit";
         public static final String COLUMN_NAME_INCREMENT = "increment";
         public static final String COLUMN_NAME_INTERVAL = "interval";
+        public static final String COLUMN_NAME_CURRENT_VALUE = "current";
 
     }
 

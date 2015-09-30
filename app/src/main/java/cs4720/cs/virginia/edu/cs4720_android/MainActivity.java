@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             String unit = goal_array_from_db.get(i).getEXTRA_UNIT();
             Double increment = goal_array_from_db.get(i).getEXTRA_INCREMENT();
             String interval = goal_array_from_db.get(i).getEXTRA_INTERVAL();
+            Double current = goal_array_from_db.get(i).getEXTRA_CURRENT();
             Goal gl = new Goal();
             gl.setID(tidno);
             gl.setTitle(title);
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             gl.setUnit(unit);
             gl.setIncrement(increment);
             gl.setInterval(interval);
+            gl.setCurrent(current);
 
             arrayOfGoals.add(gl);
         }
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 row = inflater.inflate(layoutResourceId, parent, false);
                 holder = new GoalHolder();
                 holder.title = (TextView) row.findViewById(R.id.view_description);
-                holder.goal = (TextView) row.findViewById(R.id.text_goal);
+                holder.current = (TextView) row.findViewById(R.id.text_goal);
                 holder.up = (ImageButton) row.findViewById(R.id.button_up);
                 holder.down = (ImageButton) row.findViewById(R.id.button_down);
                 holder.delete = (ImageButton) row.findViewById(R.id.buttonDelete);
@@ -194,8 +196,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             holder.delete.setTag(module.getID());
             holder.up.setTag(module.getID());
             holder.down.setTag(module.getID());
-            holder.title.setTag(module.getEXTRA_TITLE());
-            holder.goal.setText(module.getEXTRA_GOAL().toString());
+            holder.title.setText(module.getEXTRA_TITLE() + " " + module.getEXTRA_GOAL() + " " + module.getEXTRA_UNIT() + " per " +  module.getEXTRA_INTERVAL());
+            holder.current.setText(module.getEXTRA_CURRENT().toString());
 
             holder.up.setOnClickListener(new OnClickListener() {
 
@@ -224,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
-                    Log.i("Up Button Clicked", "**********");
+                    Log.i("Down Button Clicked", "**********");
 
                     final int goal_id = Integer.parseInt(v.getTag().toString());
 
@@ -273,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         class GoalHolder {
             TextView title;
-            TextView goal;
+            TextView current;
             ImageButton up;
             ImageButton down;
             ImageButton delete;
