@@ -21,7 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final ArrayList<Goal> goal_list = new ArrayList<Goal>();
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "GoalReader.db";
 
 
@@ -31,7 +31,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + GoalEntry.TABLE_NAME + " (" +
                     GoalEntry._ID + " INTEGER PRIMARY KEY," +
-                    GoalEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     GoalEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     GoalEntry.COLUMN_NAME_GOAL + REAL_TYPE + COMMA_SEP +
                     GoalEntry.COLUMN_NAME_UNIT + TEXT_TYPE + COMMA_SEP +
@@ -63,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void Add_Goal(Goal goal) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(GoalEntry.COLUMN_NAME_ENTRY_ID, goal.getID());
+        values.put(GoalEntry._ID, goal.getID());
         values.put(GoalEntry.COLUMN_NAME_TITLE, goal.getEXTRA_TITLE());
         values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL());
         values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
@@ -81,10 +80,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Goal Get_Goal(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_GOALS, new String[] { GoalEntry.COLUMN_NAME_ENTRY_ID,
+        Cursor cursor = db.query(TABLE_GOALS, new String[] { GoalEntry._ID,
                         GoalEntry.COLUMN_NAME_TITLE, GoalEntry.COLUMN_NAME_GOAL,
                         GoalEntry.COLUMN_NAME_UNIT, GoalEntry.COLUMN_NAME_INCREMENT,
-                        GoalEntry.COLUMN_NAME_INTERVAL }, GoalEntry.COLUMN_NAME_ENTRY_ID + "=?",
+                        GoalEntry.COLUMN_NAME_INTERVAL }, GoalEntry._ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -142,7 +141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(GoalEntry.COLUMN_NAME_ENTRY_ID, goal.getID());
+        values.put(GoalEntry._ID, goal.getID());
         values.put(GoalEntry.COLUMN_NAME_TITLE, goal.getEXTRA_TITLE());
         values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL());
         values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
@@ -150,14 +149,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
 
         // updating row
-        return db.update(TABLE_GOALS, values, GoalEntry.COLUMN_NAME_ENTRY_ID + " = ?",
+        return db.update(TABLE_GOALS, values, GoalEntry._ID + " = ?",
+                new String[] { String.valueOf(goal.getID()) });
+    }
+
+    // Increment single goal
+    public int Increment_Goal(Goal goal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(GoalEntry._ID, goal.getID());
+        values.put(GoalEntry.COLUMN_NAME_TITLE, goal.getEXTRA_TITLE());
+        values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL() + goal.getEXTRA_INCREMENT());
+        values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
+        values.put(GoalEntry.COLUMN_NAME_INCREMENT, goal.getEXTRA_INCREMENT());
+        values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
+
+        // updating row
+        return db.update(TABLE_GOALS, values, GoalEntry._ID + " = ?",
+                new String[] { String.valueOf(goal.getID()) });
+    }
+
+    // Decrement single goal
+    public int Decrement_Goal(Goal goal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(GoalEntry._ID, goal.getID());
+        values.put(GoalEntry.COLUMN_NAME_TITLE, goal.getEXTRA_TITLE());
+        values.put(GoalEntry.COLUMN_NAME_GOAL, goal.getEXTRA_GOAL() - goal.getEXTRA_INCREMENT());
+        values.put(GoalEntry.COLUMN_NAME_UNIT, goal.getEXTRA_UNIT());
+        values.put(GoalEntry.COLUMN_NAME_INCREMENT, goal.getEXTRA_INCREMENT());
+        values.put(GoalEntry.COLUMN_NAME_INTERVAL, goal.getEXTRA_INTERVAL());
+
+        // updating row
+        return db.update(TABLE_GOALS, values, GoalEntry._ID + " = ?",
                 new String[] { String.valueOf(goal.getID()) });
     }
 
     // Deleting single goal
     public void Delete_Goal(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_GOALS, GoalEntry.COLUMN_NAME_ENTRY_ID + " = ?",
+        db.delete(TABLE_GOALS, GoalEntry._ID + " = ?",
                 new String[] { String.valueOf(id) });
         db.close();
     }

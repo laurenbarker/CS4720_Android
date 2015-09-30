@@ -1,14 +1,23 @@
 package cs4720.cs.virginia.edu.cs4720_android;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     // Construct the data source
     ArrayList<Goal> arrayOfGoals = new ArrayList<Goal>();
-    DashAdapter adapter;
+    Goal_Adapter gAdapter;
     ListView listView;
     DatabaseHandler db;
     // Create the adapter to convert the array to views
@@ -89,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         // Attach the adapter to a ListView
         // listView = (ListView) findViewById(R.id.listView);
-        adapter = new DashAdapter(this, arrayOfGoals);
-        listView.setAdapter(adapter);
-        listView.deferNotifyDataSetChanged();
+        gAdapter = new Goal_Adapter(MainActivity.this, R.layout.row ,arrayOfGoals);
+        listView.setAdapter(gAdapter);
+        gAdapter.notifyDataSetChanged();
     }
 
     /** Called when the user clicks the Add Goal button */
@@ -135,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Goal a = new Goal(title, goal, unit, increment, interval);
         a.setDESCRIPTION(describe_goal);
         arrayOfGoals.add(a);
-        adapter.notifyDataSetChanged();
+        gAdapter.notifyDataSetChanged();
 
         db.Add_Goal(a);
         String Toast_msg = "Data inserted successfully";
@@ -151,6 +160,131 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onDeleteClicked(View v) {
         // remove the row by calling the getParent on button
         listView.removeView((View) v.getParent());
+    }
+
+    public class Goal_Adapter extends ArrayAdapter<Goal> {
+        Activity activity;
+        int layoutResourceId;
+        Goal module;
+        ArrayList<Goal> data = new ArrayList<Goal>();
+
+        public Goal_Adapter(Activity act, int layoutResourceId,
+                               ArrayList<Goal> data) {
+            super(act, layoutResourceId, data);
+            this.layoutResourceId = layoutResourceId;
+            this.activity = act;
+            this.data = data;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            GoalHolder holder = null;
+
+            if (row == null) {
+                LayoutInflater inflater = LayoutInflater.from(activity);
+
+                row = inflater.inflate(layoutResourceId, parent, false);
+                holder = new GoalHolder();
+                holder.title = (TextView) row.findViewById(R.id.view_description);
+                holder.goal = (TextView) row.findViewById(R.id.text_goal);
+                holder.up = (Button) row.findViewById(R.id.button_up);
+                holder.down = (Button) row.findViewById(R.id.button_down);
+                holder.delete = (ImageButton) row.findViewById(R.id.buttonDelete);
+                row.setTag(holder);
+            } else {
+                holder = (GoalHolder) row.getTag();
+            }
+            module = data.get(position);
+            holder.delete.setTag(module.getID());
+            holder.up.setTag(module.getID());
+            holder.down.setTag(module.getID());
+            holder.title.setTag(module.getDESCRIPTION());
+            holder.goal.setText(module.getEXTRA_GOAL().toString());
+
+            holder.up.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Log.i("Up Button Clicked", "**********");
+
+                    final int goal_id = Integer.parseInt(v.getTag().toString());
+
+                    DatabaseHandler dBHandler = new DatabaseHandler(
+                            activity.getApplicationContext());
+
+                    Goal goal = dBHandler.Get_Goal(goal_id);
+
+//                    String Toast_msg = "Goal id = " + goal.toString();
+//                    Show_Toast(Toast_msg);
+
+                    dBHandler.Increment_Goal(goal);
+                    MainActivity.this.onResume();
+
+                }
+            });
+            holder.down.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Log.i("Up Button Clicked", "**********");
+
+                    final int goal_id = Integer.parseInt(v.getTag().toString());
+
+                    DatabaseHandler dBHandler = new DatabaseHandler(
+                            activity.getApplicationContext());
+
+                    Goal goal = dBHandler.Get_Goal(goal_id);
+                    dBHandler.Decrement_Goal(goal);
+                    MainActivity.this.onResume();
+
+                }
+            });
+            holder.delete.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(final View v) {
+                    // TODO Auto-generated method stub
+
+                    // show a message while loader is loading
+
+                    AlertDialog.Builder adb = new AlertDialog.Builder(activity);
+                    adb.setTitle("Delete?");
+                    adb.setMessage("Are you sure you want to delete ");
+                    final int goal_id = Integer.parseInt(v.getTag().toString());
+                    adb.setNegativeButton("Cancel", null);
+                    adb.setPositiveButton("Ok",
+                            new AlertDialog.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    // MyDataObject.remove(positionToRemove);
+                                    DatabaseHandler dBHandler = new DatabaseHandler(
+                                            activity.getApplicationContext());
+                                    dBHandler.Delete_Goal(goal_id);
+                                    MainActivity.this.onResume();
+
+                                }
+                            });
+                    adb.show();
+                }
+
+            });
+            return row;
+
+        }
+
+        class GoalHolder {
+            TextView title;
+            TextView goal;
+            Button up;
+            Button down;
+            ImageButton delete;
+        }
+
     }
 
 
