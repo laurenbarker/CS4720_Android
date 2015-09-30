@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     Goal_Adapter gAdapter;
     ListView listView;
     DatabaseHandler db;
-    // Create the adapter to convert the array to views
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         try {
             listView = (ListView) findViewById(R.id.listView);
             listView.setItemsCanFocus(false);
-            //add_btn = (Button) findViewById(R.id.add_btn);
 
             Set_Refresh_Data();
 
@@ -59,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         // get values from form
         if (extras != null) {
             String title = extras.getString(AddGoal.EXTRA_TITLE);
-            Double goal = Double.parseDouble(extras.getString(AddGoal.EXTRA_GOAL));
+            Double goal = extras.getDouble(AddGoal.EXTRA_GOAL);
             String unit = extras.getString(AddGoal.EXTRA_UNIT);
-            Double increment = Double.parseDouble(extras.getString(AddGoal.EXTRA_INCREMENT));
+            Double increment = extras.getDouble(AddGoal.EXTRA_INCREMENT);
             String interval = extras.getString(AddGoal.EXTRA_INTERVAL);
 
             String describe_goal = title + " " + goal + " " + unit + " per " +  interval;
@@ -97,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         db.close();
 
         // Attach the adapter to a ListView
-        // listView = (ListView) findViewById(R.id.listView);
         gAdapter = new Goal_Adapter(MainActivity.this, R.layout.row ,arrayOfGoals);
         listView.setAdapter(gAdapter);
         gAdapter.notifyDataSetChanged();
@@ -140,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     public void addItem(String title, Double goal, String unit, Double increment, String interval, String describe_goal) {
 
-//        EditText editText = (EditText)findViewById(R.id.textView);
         Goal a = new Goal(title, goal, unit, increment, interval);
         a.setDESCRIPTION(describe_goal);
         arrayOfGoals.add(a);
@@ -149,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         db.Add_Goal(a);
         String Toast_msg = "Data inserted successfully";
         Show_Toast(Toast_msg);
-//        Log.d("BuildingListView", itemList.toString());
 
     }
 
@@ -189,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 holder = new GoalHolder();
                 holder.title = (TextView) row.findViewById(R.id.view_description);
                 holder.goal = (TextView) row.findViewById(R.id.text_goal);
-                holder.up = (Button) row.findViewById(R.id.button_up);
-                holder.down = (Button) row.findViewById(R.id.button_down);
+                holder.up = (ImageButton) row.findViewById(R.id.button_up);
+                holder.down = (ImageButton) row.findViewById(R.id.button_down);
                 holder.delete = (ImageButton) row.findViewById(R.id.buttonDelete);
                 row.setTag(holder);
             } else {
@@ -280,8 +274,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         class GoalHolder {
             TextView title;
             TextView goal;
-            Button up;
-            Button down;
+            ImageButton up;
+            ImageButton down;
             ImageButton delete;
         }
 
