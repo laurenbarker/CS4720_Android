@@ -41,11 +41,6 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         // An item was selected. You can retrieve the selected item using
         String selected = (String) parent.getItemAtPosition(pos);
 
-//        // toast
-//        Context context = getApplicationContext();
-//        CharSequence text = selected;
-//        int duration = Toast.LENGTH_SHORT;
-//
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
