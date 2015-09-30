@@ -21,7 +21,9 @@
         android:id="@+id/text_goal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:width="64dp"
+        android:textAlignment="center" />
 
     <ImageButton
         style="?android:attr/buttonStyleSmall"

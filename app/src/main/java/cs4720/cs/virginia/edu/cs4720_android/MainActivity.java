@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -92,6 +94,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             gl.setCurrent(current);
 
             arrayOfGoals.add(gl);
+
+//            if (current >= goal) {
+//                String Toast_msg = "You made your goal for " + title.toString();
+//                Show_Toast(Toast_msg);
+//            }
         }
         db.close();
 
@@ -199,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             holder.title.setText(module.getEXTRA_TITLE() + " " + module.getEXTRA_GOAL() + " " + module.getEXTRA_UNIT() + " per " +  module.getEXTRA_INTERVAL());
             holder.current.setText(module.getEXTRA_CURRENT().toString());
 
+            if (module.getEXTRA_GOAL() <= module.getEXTRA_CURRENT()) {
+                row.setBackgroundColor(Color.parseColor("#d8e4d4"));
+            }
+
             holder.up.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -212,9 +223,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                             activity.getApplicationContext());
 
                     Goal goal = dBHandler.Get_Goal(goal_id);
-
-//                    String Toast_msg = "Goal id = " + goal.toString();
-//                    Show_Toast(Toast_msg);
 
                     dBHandler.Increment_Goal(goal);
                     MainActivity.this.onResume();
@@ -299,6 +307,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         super.onRestoreInstanceState(savedInstanceState);
         // TODO: Handle screen rotation:
         // restore the saved items and inflate each one with inflateEditRow;
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration  newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_main);
 
     }
 

@@ -3,6 +3,7 @@ package cs4720.cs.virginia.edu.cs4720_android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,13 +56,29 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         String title = editTitle.getText().toString();
         // goal
         EditText editGoal = (EditText) findViewById(R.id.input_goal);
-        Double goal = Double.parseDouble(editGoal.getText().toString());
+        Double goal;
+        try {
+            goal = Double.parseDouble(editGoal.getText().toString());
+        } catch (Exception e) {
+            // TODO: handle exception
+            Log.e("some error", "" + e);
+            goal = 0.0;
+        }
+
         // unit
         EditText editUnit = (EditText) findViewById(R.id.input_unit);
         String unit = editUnit.getText().toString();
         // increment
         EditText editIncrement = (EditText) findViewById(R.id.input_increment);
-        Double increment = Double.parseDouble(editIncrement.getText().toString());
+        Double increment;
+        try {
+            increment = Double.parseDouble(editIncrement.getText().toString());
+        } catch (Exception e) {
+            // TODO: handle exception
+            Log.e("some error", "" + e);
+            increment = 0.0;
+        }
+
         // interval
         Spinner editInterval = (Spinner) findViewById(R.id.spinner_interval);
         String interval = editInterval.getSelectedItem().toString();
