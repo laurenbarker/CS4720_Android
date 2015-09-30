@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             holder.delete.setTag(module.getID());
             holder.up.setTag(module.getID());
             holder.down.setTag(module.getID());
-            holder.title.setTag(module.getDESCRIPTION());
+            holder.title.setTag(module.getEXTRA_TITLE());
             holder.goal.setText(module.getEXTRA_GOAL().toString());
 
             holder.up.setOnClickListener(new OnClickListener() {

@@ -55,13 +55,13 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         String title = editTitle.getText().toString();
         // goal
         EditText editGoal = (EditText) findViewById(R.id.input_goal);
-        String goal = editGoal.getText().toString();
+        Double goal = Double.parseDouble(editGoal.getText().toString());
         // unit
         EditText editUnit = (EditText) findViewById(R.id.input_unit);
         String unit = editUnit.getText().toString();
         // increment
         EditText editIncrement = (EditText) findViewById(R.id.input_increment);
-        String increment = editIncrement.getText().toString();
+        Double increment = Double.parseDouble(editIncrement.getText().toString());
         // interval
         Spinner editInterval = (Spinner) findViewById(R.id.spinner_interval);
         String interval = editInterval.getSelectedItem().toString();
@@ -69,9 +69,9 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
 
         Bundle extras = new Bundle();
         extras.putString(EXTRA_TITLE, title);
-        extras.putString(EXTRA_GOAL, goal);
+        extras.putDouble(EXTRA_GOAL, goal);
         extras.putString(EXTRA_UNIT, unit);
-        extras.putString(EXTRA_INCREMENT, increment);
+        extras.putDouble(EXTRA_INCREMENT, increment);
         extras.putString(EXTRA_INTERVAL, interval);
         intent.putExtras(extras);
 
