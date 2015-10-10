@@ -31,12 +31,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     Goal_Adapter gAdapter;
     ListView listView;
     DatabaseHandler db;
+    ShakeActivity shake = new ShakeActivity();
 
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // shake listener
+        shake.onCreate();
 
         try {
             listView = (ListView) findViewById(R.id.listView);
@@ -48,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             // TODO: handle exception
             Log.e("some error", "" + e);
         }
-
-
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             String describe_goal = title + " " + goal + " " + unit + " per " +  interval;
             addItem(title, goal, unit, increment, interval, describe_goal);
         }
-
 
     }
 
