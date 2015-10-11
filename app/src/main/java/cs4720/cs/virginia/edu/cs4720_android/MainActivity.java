@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,14 +32,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     Goal_Adapter gAdapter;
     ListView listView;
     DatabaseHandler db;
+    int noGoalsId = -1;
+    boolean remove_text = false;
+    TextView noGoals;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
 
         try {
             listView = (ListView) findViewById(R.id.listView);
             listView.setItemsCanFocus(false);
+
+            if (extras != null && !extras.getString(AddGoal.EXTRA_TITLE).equals("")) {
+                remove_text = true;
+            }
 
             Set_Refresh_Data();
 
@@ -47,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Log.e("some error", "" + e);
         }
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+
 
         if( intent.getBooleanExtra("Exit me", false)) {
             intent.removeExtra("Exit me");
@@ -60,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         // get values from form
         if (extras != null && !extras.getString(AddGoal.EXTRA_TITLE).equals("")) {
+
             String title = extras.getString(AddGoal.EXTRA_TITLE);
             Double goal = extras.getDouble(AddGoal.EXTRA_GOAL);
             String unit = extras.getString(AddGoal.EXTRA_UNIT);
@@ -78,6 +88,26 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         arrayOfGoals.clear();
         db = new DatabaseHandler(this);
         ArrayList<Goal> goal_array_from_db = db.Get_Goals();
+
+        if (goal_array_from_db.size() == 0 && !remove_text) {
+            RelativeLayout ll = (RelativeLayout)findViewById(R.id.fragment);
+            RelativeLayout.LayoutParams lparams = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            noGoals = new TextView(this);
+            noGoals.generateViewId();
+            noGoalsId = noGoals.getId();
+            noGoals.setLayoutParams(lparams);
+            noGoals.setText(R.string.no_goals);
+            ll.addView(noGoals);
+            ll.invalidate();
+        } else if (findViewById(noGoalsId) != null && remove_text){
+            RelativeLayout ll = (RelativeLayout)findViewById(R.id.fragment);
+            //TextView noGoals = (TextView) findViewById(noGoalsId);
+            ((ViewGroup) noGoals.getParent()).removeView(noGoals);
+            ll.invalidate();
+            //remove_text = false;
+
+        }
 
         for (int i = 0; i < goal_array_from_db.size(); i++) {
 
@@ -269,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                                     DatabaseHandler dBHandler = new DatabaseHandler(
                                             activity.getApplicationContext());
                                     dBHandler.Delete_Goal(goal_id);
+                                    remove_text = false;
                                     MainActivity.this.onResume();
 
                                 }
