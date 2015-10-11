@@ -9,7 +9,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by laurenbarker on 10/10/15.
@@ -33,13 +32,13 @@ public class ShakeService extends Service {
 
     @Override
     public void onCreate() {
-        Toast.makeText(this, "Shake detection Created", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Shake detection Created", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Shake detection Stopped", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Shake detection Stopped", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
         mSensorMgr.unregisterListener(shakeListener);
     }
