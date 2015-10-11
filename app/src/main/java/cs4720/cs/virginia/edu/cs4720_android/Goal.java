@@ -50,6 +50,7 @@ public class Goal {
         this.EXTRA_UNIT = EXTRA_UNIT;
         this.EXTRA_INCREMENT = EXTRA_INCREMENT;
         this.EXTRA_INTERVAL = EXTRA_INTERVAL;
+        this.EXTRA_CURRENT = 0.0;
         this.DESCRIPTION = null;
         this.GOAL_TEXT = null;
     }
