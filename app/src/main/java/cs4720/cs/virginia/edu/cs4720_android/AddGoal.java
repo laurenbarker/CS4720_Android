@@ -25,16 +25,16 @@ public class AddGoal extends Activity implements AdapterView.OnItemSelectedListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_goal);
 
-        if( getIntent().getBooleanExtra("Exit me", false)) {
-            Intent exitIntent = new Intent(AddGoal.this, MainActivity.class);
-            exitIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            exitIntent.putExtra("Exit me", true);
-            startActivity(exitIntent);
+//        if( getIntent().getBooleanExtra("Exit me", false)) {
+//            Intent exitIntent = new Intent(AddGoal.this, MainActivity.class);
+//            exitIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            exitIntent.putExtra("Exit me", true);
+//            startActivity(exitIntent);
 //            if (!isFinishing()) {
 //                finish();
 //            }
-            return; // add this to prevent from doing unnecessary stuffs
-        }
+//            return; // add this to prevent from doing unnecessary stuffs
+//        }
 
         // interval spinner
         Spinner spinner_interval = (Spinner) findViewById(R.id.spinner_interval);

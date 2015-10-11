@@ -16,15 +16,15 @@ import android.widget.Toast;
  */
 public class ShakeService extends Service {
 
-    private float xAccel, yAccel, zAccel;
-    private float xPreviousAccel, yPreviousAccel, zPreviousAccel;
+    private float xAccel = 0, yAccel = 0, zAccel = 0;
+    private float xPreviousAccel = 0, yPreviousAccel = 0, zPreviousAccel= 0;
     private boolean firstUpdate = true;
     private final float shakeThreshold = 1.5f;
     private boolean shakeInitiated = false;
     //SensorEventListener mShakeListener;
     SensorManager mSensorMgr;
     Sensor mAccelerometer;
-    private static final String TAG = "MyService";
+    private static final String TAG = "ShakeSensor";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -33,22 +33,28 @@ public class ShakeService extends Service {
 
     @Override
     public void onCreate() {
-        Toast.makeText(this, "My Service Created", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Shake detection Created", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Shake detection Stopped", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
-        //mSensorMgr.unregisterListener(this);
+        mSensorMgr.unregisterListener(shakeListener);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startid) {
 
+        xAccel = 0;
+        yAccel = 0;
+        zAccel = 0;
+        xPreviousAccel = 0;
+        yPreviousAccel = 0;
+        zPreviousAccel= 0;
         mSensorMgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        System.out.println("Created.");
+        Log.d(TAG, "Shake detection start");
         mSensorMgr.registerListener(shakeListener,
                 mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
@@ -74,9 +80,10 @@ public class ShakeService extends Service {
         }
 
         private void executeShakeAction() {
+            Log.d(TAG, "Device was shaken.");
             //this method is called when devices shakes
             mSensorMgr.unregisterListener(this);
-            Intent intent = new Intent(ShakeService.this, AddGoal.class);
+            Intent intent = new Intent(ShakeService.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("Exit me", true);
             startActivity(intent);

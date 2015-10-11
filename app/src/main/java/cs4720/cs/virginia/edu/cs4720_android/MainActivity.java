@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         try {
             listView = (ListView) findViewById(R.id.listView);
             listView.setItemsCanFocus(false);
@@ -52,16 +51,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Bundle extras = intent.getExtras();
 
         if( intent.getBooleanExtra("Exit me", false)) {
+            intent.removeExtra("Exit me");
+            System.out.println("Quiting");
             if (!isFinishing()) {
                 finish();
             }
-
-            System.out.println("FINISH");
             return; // add this to prevent from doing unnecessary stuffs
         }
 
         // get values from form
-        if (extras != null) {
+        if (extras != null && !extras.getString(AddGoal.EXTRA_TITLE).equals("")) {
             String title = extras.getString(AddGoal.EXTRA_TITLE);
             Double goal = extras.getDouble(AddGoal.EXTRA_GOAL);
             String unit = extras.getString(AddGoal.EXTRA_UNIT);
@@ -101,10 +100,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
             arrayOfGoals.add(gl);
 
-//            if (current >= goal) {
-//                String Toast_msg = "You made your goal for " + title.toString();
-//                Show_Toast(Toast_msg);
-//            }
         }
         db.close();
 
@@ -157,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         gAdapter.notifyDataSetChanged();
 
         db.Add_Goal(a);
-        String Toast_msg = "Data inserted successfully";
+        String Toast_msg = "Data saved successfully";
         Show_Toast(Toast_msg);
 
     }
