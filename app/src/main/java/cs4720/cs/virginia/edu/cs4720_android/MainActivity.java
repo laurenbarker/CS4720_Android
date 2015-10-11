@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         if( intent.getBooleanExtra("Exit me", false)) {
             intent.removeExtra("Exit me");
-            System.out.println("Quiting");
             if (!isFinishing()) {
                 finish();
             }
