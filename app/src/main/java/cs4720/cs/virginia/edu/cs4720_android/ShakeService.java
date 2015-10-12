@@ -18,7 +18,7 @@ public class ShakeService extends Service {
     private float xAccel = 0, yAccel = 0, zAccel = 0;
     private float xPreviousAccel = 0, yPreviousAccel = 0, zPreviousAccel= 0;
     private boolean firstUpdate = true;
-    private final float shakeThreshold = 1.5f;
+    private final float shakeThreshold = 10.0f;
     private boolean shakeInitiated = false;
     //SensorEventListener mShakeListener;
     SensorManager mSensorMgr;
