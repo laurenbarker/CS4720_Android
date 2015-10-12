@@ -68,16 +68,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
 
         // get values from form
-        if (extras != null && !extras.getString(AddGoal.EXTRA_TITLE).equals("")) {
+        if (extras != null && extras.getSerializable(AddGoal.EXTRA_TITLE) != null) {
+            if (!extras.getString(AddGoal.EXTRA_TITLE).equals("")) {
 
-            String title = extras.getString(AddGoal.EXTRA_TITLE);
-            Double goal = extras.getDouble(AddGoal.EXTRA_GOAL);
-            String unit = extras.getString(AddGoal.EXTRA_UNIT);
-            Double increment = extras.getDouble(AddGoal.EXTRA_INCREMENT);
-            String interval = extras.getString(AddGoal.EXTRA_INTERVAL);
+                String title = extras.getString(AddGoal.EXTRA_TITLE);
+                Double goal = extras.getDouble(AddGoal.EXTRA_GOAL);
+                String unit = extras.getString(AddGoal.EXTRA_UNIT);
+                Double increment = extras.getDouble(AddGoal.EXTRA_INCREMENT);
+                String interval = extras.getString(AddGoal.EXTRA_INTERVAL);
 
-            String describe_goal = title + " " + goal + " " + unit + " per " +  interval;
-            addItem(title, goal, unit, increment, interval, describe_goal);
+                String describe_goal = title + " " + goal + " " + unit + " per " + interval;
+                addItem(title, goal, unit, increment, interval, describe_goal);
+            }
         }
 
         startService(new Intent(MainActivity.this, ShakeService.class));
